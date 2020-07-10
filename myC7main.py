@@ -54,6 +54,7 @@ def agregar(eldominio):
                 res=uno.updateTuple(eldominio, ipNueva)
                 print(res)
                 if res: print('update OK!!!!!!!')
+                uno.insert_logs(you[eldominio][2],you[eldominio][3],eldominio,ipActual,ipNueva)
         except:
             print('ERROR: DNS request Networks')
     else:

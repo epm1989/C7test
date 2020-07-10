@@ -56,12 +56,12 @@ class Elconjunto():
             return False
     def selectDomains(self):
         try:
-            query = ("select name,active,ip from dominios left join ips on dominios.dominio_id = ips.dominio_id;")
+            query = ("select name,active,ip,dominios.dominio_id,ips.ip_id from dominios left join ips on dominios.dominio_id = ips.dominio_id;")
             cursor=self._mariadb_connection.cursor()
             cursor.execute(query)
             mydict=dict()
-            for (name,active,ip) in cursor:
-                mydict[name]=[active,ip]
+            for (name,active,ip,dominio_id,ip_id) in cursor:
+                mydict[name]=[active,ip,dominio_id,ip_id]
 
             cursor.close()
         except:
