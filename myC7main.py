@@ -38,9 +38,9 @@ def agregar(eldominio):
     you=uno.selectDomains()
 
     existe=eldominio in you.keys()
-    print(you.keys())
-    print(you.values())
-    print(existe)
+    #print(you.keys())
+    #print(you.values())
+    #print(existe)
 
     if existe:
         try:
@@ -48,8 +48,9 @@ def agregar(eldominio):
             res=uno.update_domain(eldominio,1)
             resultDNS = dns.resolver.query(eldominio, 'A')
             ipNueva=resultDNS[0].to_text()
-            print(ipActual,ipNueva)
+            #print(ipActual,ipNueva)
             if not (ipActual == ipNueva ):
+                print(ipActual,ipNueva)
                 print('sobreescribiendo IP...!!!!!!!')
                 res=uno.updateTuple(eldominio, ipNueva)
                 print(res)
@@ -134,7 +135,7 @@ def appAsync(secret=thesecret):
             
             if not (ipActual == ipNueva ):
                 res=dos.updateTuple(dominio, ipNueva)
-                if res: print('update OK!!!!!!!')
+                if res: print('\nbackgroud - update OK!!!!!!!')
                 print(dominio)
                 print(ipActual,ipNueva)
                 dos.insert_logs(he[dominio][2],he[dominio][3],dominio,ipActual,ipNueva)

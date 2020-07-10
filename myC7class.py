@@ -16,7 +16,8 @@ class Elconjunto():
             self.ip=self._lalista[1::]
             
         else:
-            print('no has agregado dominio e IP')
+            pass
+            #print('no has agregado dominio e IP')
         
         if kwargs and (('username' in kwargs) and ('secret' in kwargs) and ('theDatabase' in kwargs)):
             self._username=kwargs['username']
