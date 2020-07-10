@@ -54,7 +54,23 @@ class Elconjunto():
             return True
         except:
             return False
-    
+    def selectDomains(self):
+        try:
+            query = ("select name,active from dominios")
+            cursor=self._mariadb_connection.cursor()
+            cursor.execute(query)
+            mydict=dict()
+            for (name,active) in cursor:
+                mydict[name]=active
+
+            cursor.close()
+        except:
+            return False
+
+
+        return mydict
+
+
     def insertTuple(self,eldomain, laip):
         """
         uno.insertTuple('hola.aff','4.2.5.4')

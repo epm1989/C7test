@@ -2,10 +2,10 @@ from time import sleep;
 from myC7class import Elconjunto
 import os
 
-global uno
+global uno,mio
 thesecret=os.environ['C7flag']
 uno=Elconjunto(username='esteban',secret=thesecret,theDatabase='CsieteTest')
-
+mio=dict()
 
 def listar():
     
@@ -29,9 +29,23 @@ def borrar(eldominio,active):
     uno.connectDB()
     res=uno.update_domain(eldominio,active)
     if res:
-        print('Movieminto Exitoso!!!')
+        print('Movimeinto Exitoso!!!')
     uno.disconnectDB()
 
+def agregar(eldominio):
+    uno.connectDB()
+    you=uno.selectDomains()
+
+    existe=eldominio in you.keys()
+    print(you.keys())
+    print(existe)
+    if existe:
+        res=uno.update_domain(eldominio,1)
+    else:
+        res=uno.insertTuple(eldominio, '5.5.5.5')
+
+    uno.disconnectDB()
+    
 
 def run():
     while True:
@@ -69,7 +83,10 @@ def run():
                 except:
                     print('No se pudo procesar, caracteres invalidos!!!')
                     sleep(1)
-                
+            if choice == 2:
+                entrada=input('Dijite el Dominio adicionar: ')
+                entrada=entrada.replace('&','').replace('%','').replace(',','').replace(';','').replace(' ','')
+                agregar(entrada)    
         except ValueError as identifier:
             print(identifier)
             print('Debe de ingresar un Numero. no un texto')
