@@ -94,7 +94,7 @@ class Elconjunto():
         """
         try:
             add_tuple = ("INSERT INTO logs(dominio_id,ip_id,description) VALUES ({0},{1},CONCAT('Se detecta un cambio en el dominio ','{2}',' con IP nueva ','{3} -> {4}'))".format(dominio_id,ip_id,dominio,ipActual,ipNueva))
-            print(add_tuple)
+            #print(add_tuple)
             cursor=self._mariadb_connection.cursor()
             cursor.execute(add_tuple)
             self._mariadb_connection.commit()
@@ -103,7 +103,8 @@ class Elconjunto():
         except:
             return False
         
-
+"""
+INICIALIZAR LA INSTANCIA
 import os
 #liux export C7flag='ccxxxxxxx' reinicar consola
 thesecret=os.environ['C7flag']
@@ -112,7 +113,7 @@ thesecret=os.environ['C7flag']
 uno=Elconjunto(username='esteban',secret=thesecret,theDatabase='CsieteTest')
 uno.connectDB()
 
-uno.insertTuple('www.asla.aff','4.2.88.4')
+uno.insertTuple('wwww.asla.aff','4.2.88.4')
 
 mio=uno.selectInfoTablesTuple()
 
@@ -128,6 +129,6 @@ uno._username
 uno.__secret
 uno.domain
 uno.ip
-
+"""
 
 
