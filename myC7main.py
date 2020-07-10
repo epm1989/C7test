@@ -15,6 +15,16 @@ def listar():
         print('Fallo la lectura, intente de nuevo')
         sleep(1)
 
+def borrar(eldominio):
+    thesecret=os.environ['C7flag']
+    uno=Elconjunto(username='esteban',secret=thesecret,theDatabase='CsieteTest')
+    uno.connectDB()
+    res=uno.update_domain(eldominio)
+    if res:
+        print('Movieminto Exitoso!!!')
+    uno.disconnectDB()
+
+
 def run():
     while True:
         saludo='''
@@ -31,7 +41,8 @@ def run():
         3. Borrar Dominio.
         4. Abortar.
         -->>>>>>>
-        :'''
+        ##############################################
+         :'''
         try:
             choice=input(opciones)
             choice=int(choice)
@@ -42,6 +53,15 @@ def run():
 
             if choice == 1:
                 listar()
+            if choice == 3:
+                try:
+                    entrada=input('Dijite el Dominio exactamente como fue listado: ')
+                    entrada=entrada.replace('&','').replace('%','').replace(',','').replace(';','')
+                    borrar(entrada)
+                except:
+                    print('No se pudo procesar, caracteres invalidos!!!')
+                    sleep(1)
+                
         except ValueError as identifier:
             print(identifier)
             print('Debe de ingresar un Numero. no un texto')
