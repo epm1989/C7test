@@ -1,6 +1,6 @@
 from time import sleep;
 from myC7class import Elconjunto
-import os
+import os,threading
 import dns.resolver
 
 global uno,mio
@@ -114,8 +114,39 @@ def run():
             print('Debe de ingresar un Numero. no un texto')
         finally:
             sleep(2)
+global j
+j=0
+def appAsync(secret=thesecret):
+    global j
+    j += 1
+    #print("hello world {}".format(j))
 
+    dos=Elconjunto(username='esteban',secret=secret,theDatabase='CsieteTest')
+    dos.connectDB()
+    he=dos.selectDomains()
+
+    for dominio,value in he.items():
+        ipActual=he[dominio][1]
+        
+        try:
+            resultDNS = dns.resolver.query(dominio, 'A')
+            ipNueva=resultDNS[0].to_text()
+            
+            if not (ipActual == ipNueva ):
+                res=dos.updateTuple(dominio, ipNueva)
+                if res: print('update OK!!!!!!!')
+                print(dominio)
+                print(ipActual,ipNueva)
+                dos.insert_logs(he[dominio][2],he[dominio][3],dominio,ipActual,ipNueva)
+        except:
+            pass
+
+    dos.disconnectDB()
+    threading.Timer(10, appAsync).start()
 
 
 if __name__ == "__main__":
+    appAsync()
     run()
+
+
