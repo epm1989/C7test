@@ -143,7 +143,7 @@ def appAsync(secret=thesecret):
             pass
 
     dos.disconnectDB()
-    threading.Timer(10, appAsync).start()
+    threading.Timer(60, appAsync).start()
 
 
 if __name__ == "__main__":
