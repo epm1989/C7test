@@ -1,4 +1,19 @@
 from time import sleep;
+from myC7class import Elconjunto
+import os
+
+
+def listar():
+    thesecret=os.environ['C7flag']
+    uno=Elconjunto(username='esteban',secret=thesecret,theDatabase='CsieteTest')
+    uno.connectDB()
+    mio=uno.selectInfoTablesTuple()
+    uno.disconnectDB()
+    if mio:
+        print(mio.keys())
+    else:
+        print('Fallo la lectura, intente de nuevo')
+        sleep(1)
 
 def run():
     while True:
@@ -24,6 +39,9 @@ def run():
                 raise ValueError('Opcion fuera del rango.')
             if choice == 4 :
                 break
+
+            if choice == 1:
+                listar()
         except ValueError as identifier:
             print(identifier)
             print('Debe de ingresar un Numero. no un texto')
