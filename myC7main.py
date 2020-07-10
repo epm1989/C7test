@@ -24,7 +24,7 @@ def listar():
         print('Fallo la lectura, intente de nuevo')
         sleep(1)
 
-def borrar(eldominio):
+def borrar(eldominio,0):
 
     uno.connectDB()
     res=uno.update_domain(eldominio)

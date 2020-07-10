@@ -103,14 +103,14 @@ class Elconjunto():
         except:
             return False
     
-    def update_domain(self,dominio):
+    def update_domain(self,dominio,active):
         """
         UPDATE dominios SET active = 0 WHERE dominio_id = (SELECT dominio_id FROM dominios WHERE name = 'fgfg'  LIMIT 1);
         uno.update_domain('hoaasla.aff')
         """
         try:
             
-            add_tuple = ("UPDATE dominios SET active = 0 WHERE dominio_id = (SELECT dominio_id FROM dominios WHERE name = '{}'  LIMIT 1)".format(dominio))
+            add_tuple = ("UPDATE dominios SET active = {1} WHERE dominio_id = (SELECT dominio_id FROM dominios WHERE name = '{0}'  LIMIT 1)".format(dominio,active))
             #print(add_tuple)
             cursor=self._mariadb_connection.cursor()
             cursor.execute(add_tuple)
