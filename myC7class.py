@@ -102,6 +102,23 @@ class Elconjunto():
             return True
         except:
             return False
+    
+    def update_domain(self,dominio):
+        """
+        UPDATE dominios SET active = 0 WHERE dominio_id = (SELECT dominio_id FROM dominios WHERE name = 'fgfg'  LIMIT 1);
+        uno.update_domain('hoaasla.aff')
+        """
+        try:
+            
+            add_tuple = ("UPDATE dominios SET active = 0 WHERE dominio_id = (SELECT dominio_id FROM dominios WHERE name = '{}'  LIMIT 1)".format(dominio))
+            #print(add_tuple)
+            cursor=self._mariadb_connection.cursor()
+            cursor.execute(add_tuple)
+            self._mariadb_connection.commit()
+            cursor.close()
+            return True
+        except:
+            return False
         
 """
 INICIALIZAR LA INSTANCIA
@@ -129,6 +146,11 @@ uno._username
 uno.__secret
 uno.domain
 uno.ip
+
+actualizar campo
+UPDATE dominios SET active = 0 WHERE dominio_id = (SELECT dominio_id FROM dominios WHERE name = 'fgfg'  LIMIT 1);
+uno.update_domain('hoaasla.aff')
+
 """
 
 
