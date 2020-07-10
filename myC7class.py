@@ -56,12 +56,12 @@ class Elconjunto():
             return False
     def selectDomains(self):
         try:
-            query = ("select name,active from dominios")
+            query = ("select name,active,ip from dominios left join ips on dominios.dominio_id = ips.dominio_id;")
             cursor=self._mariadb_connection.cursor()
             cursor.execute(query)
             mydict=dict()
-            for (name,active) in cursor:
-                mydict[name]=active
+            for (name,active,ip) in cursor:
+                mydict[name]=[active,ip]
 
             cursor.close()
         except:
@@ -83,6 +83,23 @@ class Elconjunto():
             add_tuple = ("INSERT INTO ips(ip,dominio_id) VALUES ('{1}',(SELECT dominio_id FROM dominios WHERE name = '{0}' LIMIT 1))".format(eldomain,laip))
             cursor.execute(add_tuple)
             self._mariadb_connection.commit()
+            cursor.close()
+            return True
+        except:
+            return False
+
+    def updateTuple(self,eldomain, laip):
+        """
+        uno.updateTuple('hola.aff','4.2.5.4')
+        "UPDATE ips SET ip = '{1}' WHERE dominio_id = (SELECT dominio_id FROM dominios WHERE name = '{0}' LIMIT 1)".format(eldomain,laip)
+        """
+        try:
+            
+            add_tuple = ("UPDATE ips SET ip = '{1}' WHERE dominio_id = (SELECT dominio_id FROM dominios WHERE name = '{0}' LIMIT 1)".format(eldomain,laip))
+            cursor=self._mariadb_connection.cursor()
+            cursor.execute(add_tuple)
+            self._mariadb_connection.commit()
+
             cursor.close()
             return True
         except:

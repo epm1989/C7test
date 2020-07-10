@@ -1,6 +1,7 @@
 from time import sleep;
 from myC7class import Elconjunto
 import os
+import dns.resolver
 
 global uno,mio
 thesecret=os.environ['C7flag']
@@ -38,11 +39,31 @@ def agregar(eldominio):
 
     existe=eldominio in you.keys()
     print(you.keys())
+    print(you.values())
     print(existe)
+
     if existe:
-        res=uno.update_domain(eldominio,1)
+        try:
+            ipActual=you[eldominio][1]
+            res=uno.update_domain(eldominio,1)
+            resultDNS = dns.resolver.query(eldominio, 'A')
+            ipNueva=resultDNS[0].to_text()
+            print(ipActual,ipNueva)
+            if not (ipActual == ipNueva ):
+                print('sobreescribiendo IP...!!!!!!!')
+                res=uno.updateTuple(eldominio, ipNueva)
+                print(res)
+                if res: print('update OK!!!!!!!')
+        except:
+            print('ERROR: DNS request Networks')
     else:
-        res=uno.insertTuple(eldominio, '5.5.5.5')
+        try:
+            result = dns.resolver.query(eldominio, 'A')
+            ipNueva=result[0].to_text()
+            res=uno.insertTuple(eldominio, ipNueva)
+        except:
+            print('ERROR: DNS request Networks')
+        
 
     uno.disconnectDB()
     
