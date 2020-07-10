@@ -1,6 +1,8 @@
 # C7test
 
 Resume:
+  UBUNTO 18.04.4 LTS bionic
+  linux 5.3.0-62-generic
   Python 3.7
   little of netwoking DNS
   OOP
