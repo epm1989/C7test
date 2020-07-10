@@ -2,10 +2,13 @@ from time import sleep;
 from myC7class import Elconjunto
 import os
 
+global uno
+thesecret=os.environ['C7flag']
+uno=Elconjunto(username='esteban',secret=thesecret,theDatabase='CsieteTest')
+
 
 def listar():
-    thesecret=os.environ['C7flag']
-    uno=Elconjunto(username='esteban',secret=thesecret,theDatabase='CsieteTest')
+    
     uno.connectDB()
     mio=uno.selectInfoTablesTuple()
     uno.disconnectDB()
@@ -22,8 +25,7 @@ def listar():
         sleep(1)
 
 def borrar(eldominio):
-    thesecret=os.environ['C7flag']
-    uno=Elconjunto(username='esteban',secret=thesecret,theDatabase='CsieteTest')
+
     uno.connectDB()
     res=uno.update_domain(eldominio)
     if res:
