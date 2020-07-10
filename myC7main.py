@@ -10,7 +10,13 @@ def listar():
     mio=uno.selectInfoTablesTuple()
     uno.disconnectDB()
     if mio:
-        print(mio.keys())
+        print('DOMINIO','DIRECCION de RED')
+        print('---------------------------')
+        c=1
+        for key,value in mio.items():
+            print(c,key,value[2])
+            c += 1
+        print('___________________________')
     else:
         print('Fallo la lectura, intente de nuevo')
         sleep(1)
@@ -56,7 +62,7 @@ def run():
             if choice == 3:
                 try:
                     entrada=input('Dijite el Dominio exactamente como fue listado: ')
-                    entrada=entrada.replace('&','').replace('%','').replace(',','').replace(';','')
+                    entrada=entrada.replace('&','').replace('%','').replace(',','').replace(';','').replace(' ','')
                     borrar(entrada)
                 except:
                     print('No se pudo procesar, caracteres invalidos!!!')
