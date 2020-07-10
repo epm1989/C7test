@@ -24,10 +24,10 @@ def listar():
         print('Fallo la lectura, intente de nuevo')
         sleep(1)
 
-def borrar(eldominio,0):
+def borrar(eldominio,active):
 
     uno.connectDB()
-    res=uno.update_domain(eldominio)
+    res=uno.update_domain(eldominio,active)
     if res:
         print('Movieminto Exitoso!!!')
     uno.disconnectDB()
@@ -65,7 +65,7 @@ def run():
                 try:
                     entrada=input('Dijite el Dominio exactamente como fue listado: ')
                     entrada=entrada.replace('&','').replace('%','').replace(',','').replace(';','').replace(' ','')
-                    borrar(entrada)
+                    borrar(entrada,0)
                 except:
                     print('No se pudo procesar, caracteres invalidos!!!')
                     sleep(1)
