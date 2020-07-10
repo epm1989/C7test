@@ -34,7 +34,7 @@ ADD    FOREIGN KEY (ip_id) REFERENCES ips(ip_id);
 
 
 --pruebas para las tablas
-SET @domi='www.purebaejemplo.locasl';
+SET @domi='www.ejemplo.com';
 SET @laip='10.2.5.46';
 INSERT INTO dominios(name,active) VALUES (@domi,0);
 SET @varmydominio = (SELECT dominio_id FROM dominios WHERE name = @domi LIMIT 1)  ;
@@ -46,9 +46,3 @@ SET @varmyip = (SELECT ip_id FROM ips WHERE ip = @laip LIMIT 1)  ;
 INSERT INTo logs(dominio_id,ip_id,description) VALUES (@varmydominio,@varmyip,CONCAT('Se detecto un cambio en el dominio ',@domi,' con IP nueva ',@laip));
 
 
-
---ALTER TABLE dominios
---DROP COLUMN ip_id;
-
---ALTER TABLE dominios 
---DROP FOREIGN KEY ips(ip_id);
